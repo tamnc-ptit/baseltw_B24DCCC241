@@ -40,6 +40,7 @@ const BaiTap1: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [form] = Form.useForm();
+  const [updateID,setUpdateID] = useState<number | null>(null);
 
   /* =======================
      TÌM KIẾM REALTIME
@@ -73,6 +74,20 @@ const BaiTap1: React.FC = () => {
     message.success('Xóa sản phẩm thành công');
   };
 
+
+  const handleUpdate = (value : Omit<SanPham,'id'>) =>{
+    setSanPhams(
+      sanPhams.map(sp => sp.id === updateID ? {...sp,...value} : sp)
+      // rải cái cũ , xong rải cái mới , cái nào trùng field thì lấy của cái mới 
+    )
+
+    message.success('Cập nhật thành công');
+  setOpenModal(false);
+  setUpdateID(null);
+  form.resetFields();
+  }
+
+
   /* =======================
      CỘT TABLE
   ======================= */
@@ -98,7 +113,10 @@ const BaiTap1: React.FC = () => {
     },
     {
       title: 'Thao tác',
+      
       render: (_, record) => (
+        <Space>
+          
         <Popconfirm
           title="Bạn có chắc chắn muốn xóa?"
           onConfirm={() => handleDelete(record.id)}
@@ -107,6 +125,14 @@ const BaiTap1: React.FC = () => {
             Xóa
           </Button>
         </Popconfirm>
+
+        <Button danger size='small' onClick={() => {
+          setUpdateID(record.id)
+          form.setFieldsValue(record)
+          setOpenModal(true)}}>
+          SỬA
+        </Button>
+        </Space>
       ),
     },
   ];
@@ -144,10 +170,10 @@ const BaiTap1: React.FC = () => {
         okText="Thêm"
         cancelText="Hủy"
       >
-        <Form
+        <Form 
           form={form}
           layout="vertical"
-          onFinish={handleAddProduct}
+          onFinish={updateID == null ? handleAddProduct : handleUpdate}
         >
           <Form.Item
             label="Tên sản phẩm"
