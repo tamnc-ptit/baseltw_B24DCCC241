@@ -1,4 +1,6 @@
-﻿export default [
+﻿import component from "@/locales/en-US/component";
+
+export default [
 	{
 		path: '/user',
 		layout: false,
@@ -48,7 +50,12 @@
 		icon: '',
 		component: './BaiTap1',
 	},
-
+	{
+		path :'/baitap2',
+		name : 'Bài Tập 2',
+		icon :'',
+		component : './BaiTap2'
+	},
 	// DANH MUC HE THONG
 	// {
 	// 	name: 'DanhMuc',
