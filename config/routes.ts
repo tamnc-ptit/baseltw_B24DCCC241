@@ -1,4 +1,5 @@
 ﻿import component from "@/locales/en-US/component";
+import route from "mock/route";
 
 export default [
 	{
@@ -56,6 +57,23 @@ export default [
 		icon :'',
 		component : './BaiTap2'
 	},
+{
+  path: '/TH01',
+  name: 'Bai Thuc Hanh',
+  component: './TH01',
+  routes: [
+    {
+      name: 'Bai1',
+      path: 'Random-Math',
+      component: './TH01/Bai1',
+    },
+    {
+      name: 'Bai2',
+      path: 'Bai-2',
+      component: './TH01/Bai2',
+    },
+  ],
+},
 	// DANH MUC HE THONG
 	// {
 	// 	name: 'DanhMuc',
@@ -108,4 +126,5 @@ export default [
 	{
 		component: './exception/404',
 	},
+	
 ];
